@@ -4,6 +4,10 @@ import Todo from './Components/Todo';
 import SettingsProvider from './Context/Settings';
 import NavBar from './Components/NavBar';
 import Settings from './Components/Settings'
+import LoginProvider from './AuthContext/_context';
+import Auth from './AuthContext/auth';
+import Login from './AuthContext/login';
+
 
 export default function App() {
   let component;
@@ -19,9 +23,14 @@ export default function App() {
   }
 
   return (
-    <SettingsProvider>
-      <NavBar />
-      {component}
-    </SettingsProvider>
+    <LoginProvider>
+      <Login/>
+      <Auth>
+        <SettingsProvider>
+          <NavBar />
+          {component}
+        </SettingsProvider>
+      </Auth>
+    </LoginProvider>
   );
 }

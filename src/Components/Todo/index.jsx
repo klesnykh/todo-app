@@ -5,7 +5,7 @@ import {SettingsContext} from '../../Context/Settings';
 import { v4 as uuid } from 'uuid';
 
 import List from '../List';
-import Header from '../Header';
+import Header from '../ToDoHeader';
 
 const Todo = () => {
   let allState = React.useContext(SettingsContext);

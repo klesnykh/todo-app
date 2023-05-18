@@ -11,11 +11,20 @@ function List (){
   React.useEffect(()=>{
     let itemsToShow = allState.displayItems;
     let list = [];
+    let listFromContext = [];
+    console.log(allState.hideCompleted);
+    if(allState.hideCompleted){
+      listFromContext = allState.list.filter(item => item.complete===false);
+    }
+    else{
+      listFromContext = allState.list;
+    }
     for(let i=0; i<itemsToShow; i++){
-      if(allState.list[i]){
-        list.push(allState.list[i]);
+      if(listFromContext[i]){
+        list.push(listFromContext[i]);
       }
     }
+    console.log(list);
     setCurrList(list);
   }, [allState.list]);
 
@@ -34,6 +43,7 @@ function List (){
       if ( item.id === id ) {
         item.complete = ! item.complete;
       }
+      console.log(item);
       return item;
     });
 

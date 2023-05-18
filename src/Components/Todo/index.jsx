@@ -30,6 +30,7 @@ const Todo = () => {
   
 
   useEffect(() => {
+    console.log('allstate.list has been updated', allState.list);
     let incompleteCount = allState.list.filter(item => !item.complete).length;
     allState.setIncomplete(incompleteCount);
     document.title = `To Do List: ${incompleteCount}`;

@@ -14,14 +14,9 @@ function SettingsProvider({ children }) {
 
   useEffect(() => {
     console.log(settings);
+    setDisplayItems(settings.displayItems);
+    setHideCompleted(settings.hideCompleted);
   }, [settings])
-
-  let localStorageDisplayItems = 3;
-  let localStorageHideCompleted = true;
-  if(settings){
-    localStorageDisplayItems = settings.displayItems;
-    localStorageHideCompleted = settings.hideCompleted;
-  }
 
   const [displayItems, setDisplayItems] = React.useState(3);
   const [hideCompleted, setHideCompleted] = React.useState(true);

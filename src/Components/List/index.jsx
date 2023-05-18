@@ -10,6 +10,7 @@ function List (){
   
   React.useEffect(()=>{
     let itemsToShow = allState.displayItems;
+    console.log(itemsToShow);
     let list = [];
     let listFromContext = [];
     console.log(allState.hideCompleted);

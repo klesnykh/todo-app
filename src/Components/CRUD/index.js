@@ -1,8 +1,15 @@
 import React from 'react';
 
+export async function get (){
+  let response = await fetch('https://api-js401.herokuapp.com/api/v1/todo', {
+    method: 'GET'
+  });
+  return response;
+}
+
 export async function add (item){
   let response = await fetch('https://api-js401.herokuapp.com/api/v1/todo', {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

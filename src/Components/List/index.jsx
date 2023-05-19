@@ -1,7 +1,7 @@
 import React from 'react';
 import {SettingsContext} from "../../Context/Settings";
 import { Pagination } from '@mantine/core';
-import {updatePatch} from '../CRUD';
+//import {updatePatch} from '../CRUD';
 
 function List (){
 
@@ -28,6 +28,7 @@ function List (){
     }
     console.log(list);
     setCurrList(list);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allState.list]);
 
   function setPage (e) {

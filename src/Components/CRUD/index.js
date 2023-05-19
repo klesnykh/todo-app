@@ -1,5 +1,3 @@
-import React from 'react';
-
 export async function get (){
   let response = await fetch('https://api-js401.herokuapp.com/api/v1/todo', {
     method: 'GET'

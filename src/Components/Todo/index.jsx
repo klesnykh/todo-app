@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import List from '../List';
 import Header from '../ToDoHeader';
-import {add, deleteById} from '../CRUD';
+import {add, /*deleteById*/} from '../CRUD';
 
 const Todo = () => {
   let allState = React.useContext(SettingsContext);
@@ -24,12 +24,12 @@ const Todo = () => {
     console.log(response);
   }
 
-  async function deleteItem(id) {
-    // const items = allState.list.filter( item => item.id !== id );
-    // allState.setList(items);
-    let response = await deleteById(id);
-    console.log(response);
-  }
+  // async function deleteItem(id) {
+  //   // const items = allState.list.filter( item => item.id !== id );
+  //   // allState.setList(items);
+  //   let response = await deleteById(id);
+  //   console.log(response);
+  // }
 
   
 

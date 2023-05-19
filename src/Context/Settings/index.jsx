@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { get } from '../../Components/CRUD';
 
 export const SettingsContext = React.createContext();
 
@@ -10,6 +11,13 @@ function SettingsProvider({ children }) {
     if(settingsFromStorage){
       setSettings(settingsFromStorage);
     }
+    async function getItems(){
+      let response = await get();
+      let items = await response.json();
+      console.log(items);
+      setList(items.results);
+    }
+    getItems();
   }, [])
 
   useEffect(() => {

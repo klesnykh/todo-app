@@ -40,7 +40,7 @@ function List (){
   }
 
   function toggleComplete(id) {
-    
+
     const items = allState.list.map( item => {
       if ( item.id === id ) {
         item.complete = ! item.complete;

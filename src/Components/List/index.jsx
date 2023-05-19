@@ -1,6 +1,7 @@
 import React from 'react';
 import {SettingsContext} from "../../Context/Settings";
 import { Pagination } from '@mantine/core';
+import {updatePatch} from '../CRUD';
 
 function List (){
 
@@ -39,12 +40,12 @@ function List (){
   }
 
   function toggleComplete(id) {
-
+    
     const items = allState.list.map( item => {
       if ( item.id === id ) {
         item.complete = ! item.complete;
+        console.log(item);
       }
-      console.log(item);
       return item;
     });
 

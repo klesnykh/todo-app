@@ -43,33 +43,16 @@ function LoginProvider(props) {
           token: action.payload,
         };
       case 'LOGIN':
-        let { username, password } = action.payload;
-        let {  token } = state;
-        let auth = testUsers[username];
-      
-        if (auth && auth.password === password) {
-          try {
-            let validUser = jwt_decode(auth.token);
-            return {
-              ...state,
-              user: validUser,
-              token: token,
-              loggedIn: true
-            };
-          } catch(e) {
-            return {
-              ...state, 
-              error: e};
-          }
-        } else {
-          return {
-            ...state,
-            error: {message: 'Invalid credentials'},
-          };
+        let { user, token } = action.payload;
+        return{
+          ...state,
+          loggedIn: true,
+          token: token,
+          user: user
         }
       case 'LOGOUT':
         return initialState;
-      case 'AUTH_ERROR':
+      case 'ERROR':
         return {
           ...state,
           error: action.payload,
@@ -79,6 +62,48 @@ function LoginProvider(props) {
     }
   };
 
+  const login = async (username, password, type) => {
+    let basicAuth = btoa(`${username}:${password}`);
+    let response;
+    
+    if(type==='LOGIN'){
+      response = await fetch('https://api-js401.herokuapp.com/signin', {
+        method: 'POST',
+        headers: {
+          Authorization: `Basic ${basicAuth}`,
+        }
+      });
+    }
+    console.log(username, password);
+    if(type==='SIGNUP'){
+      response = await fetch('https://api-js401.herokuapp.com/signup', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: username,
+          password: password,
+
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
+    }
+  
+    let data = await response.json();
+    if (data.user && data.token) {
+      let userInfo = jwt_decode(data.token);
+      dispatch({
+        type: 'LOGIN',
+        payload: { user: userInfo, token: data.token }
+      })
+    } else {
+      dispatch({
+        type: 'ERROR',
+        payload: { message: "Basic Authentication Error" }
+      })
+    }
+  }
+
   const can = (capability) => {
     return state?.user?.capabilities?.includes(capability);
   };
@@ -86,7 +111,7 @@ function LoginProvider(props) {
   const onLoad = (token) => {
     //decode the token
     let decoded = jwt_decode(token);
-    let tokenUser = testUsers[decoded.name];
+    let tokenUser = testUsers[decoded.name]; //Need to somehow check the API  if token is valid, not entirely sure how
     //check if the token is still good
     if(tokenUser && tokenUser.token === token){
       dispatch({
@@ -94,13 +119,6 @@ function LoginProvider(props) {
         payload: token
       });
     }
-  };
-
-  const login = (user, pass) => {
-    dispatch({
-      type:'LOGIN',
-      payload: {username: user, password: pass},
-    });
   };
 
   const logout = () => {

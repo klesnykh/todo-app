@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import List from '../List';
 import Header from '../ToDoHeader';
+import {add, deleteById} from '../CRUD';
 
 const Todo = () => {
   let allState = React.useContext(SettingsContext);
@@ -15,16 +16,19 @@ const Todo = () => {
   });
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
-  function addItem(item) {
+  async function addItem(item) {
     item.id = uuid();
     item.complete = false;
     console.log(item);
-    allState.setList([...allState.list, item]);
+    let response = await add(item);
+    console.log(response);
   }
 
-  function deleteItem(id) {
-    const items = allState.list.filter( item => item.id !== id );
-    allState.setList(items);
+  async function deleteItem(id) {
+    // const items = allState.list.filter( item => item.id !== id );
+    // allState.setList(items);
+    let response = await deleteById(id);
+    console.log(response);
   }
 
   

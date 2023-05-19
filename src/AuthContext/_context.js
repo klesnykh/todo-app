@@ -136,7 +136,9 @@ function LoginProvider(props) {
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
-    onLoad(token);
+    if(token){
+      onLoad(token);
+    }
   }, []);
 
   return (
